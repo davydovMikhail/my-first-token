@@ -5,9 +5,9 @@ pragma solidity ^0.8.0;
 // import "hardhat/console.sol";
 
 contract Token {
-    string public name = "Training Test Token";
-    string public symbol = "TTTDMS";
-    uint8 public decimals = 18;
+    string public constant name = "Training Test Token";
+    string public constant symbol = "TTTDMS";
+    uint8 public constant decimals = 18;
     address private _owner;
     uint256 private _totalSupply;
 
@@ -60,7 +60,7 @@ contract Token {
         return _allowances[_from][_to];
     }
 
-    function approve(address _to, uint256 _amount) external returns (bool) {
+    function approve(address _to, uint256 _amount) public returns (bool) {
         _allowances[msg.sender][_to] = _amount;
         emit Approval(msg.sender, _to, _amount);
         return true;
@@ -78,7 +78,7 @@ contract Token {
         );
         _balances[_from] -= _amount;
         _balances[_to] += _amount;
-        this.approve(_to, currentAllowance - _amount);
+        approve(_to, currentAllowance - _amount);
         emit Transfer(_from, _to, _amount);
         return true;
     }
@@ -87,8 +87,7 @@ contract Token {
         external
         returns (bool)
     {
-        uint256 currentAllowance = _allowances[msg.sender][_to];
-        this.approve(_to, currentAllowance + _addedAmount);
+        approve(_to, _allowances[msg.sender][_to] + _addedAmount);
         return true;
     }
 
@@ -101,7 +100,7 @@ contract Token {
             currentAllowance >= _subtractedAmount,
             "the subtracted value must be less than the current Allowance"
         );
-        this.approve(_to, currentAllowance - _subtractedAmount);
+        approve(_to, currentAllowance - _subtractedAmount);
         return true;
     }
 
