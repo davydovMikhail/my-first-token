@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: Unlicense
+//SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 // import "../node_modules/hardhat/console.sol";
@@ -29,7 +29,7 @@ contract Token {
     );
 
     modifier onlyOwner() {
-        require(msg.sender == _owner);
+        require(msg.sender == _owner, 'this feature is only available to the owner of the contract');
         _;
     }
 
@@ -63,7 +63,7 @@ contract Token {
     function approve(address _to, uint256 _amount) public returns (bool) {
         _allowances[msg.sender][_to] = _amount;
         emit Approval(msg.sender, _to, _amount);
-        return true;
+        return true;    
     }
 
     function transferFrom(
@@ -71,14 +71,14 @@ contract Token {
         address _to,
         uint256 _amount
     ) external returns (bool) {
-        uint256 currentAllowance = _allowances[_from][_to];
+        uint256 currentAllowance = _allowances[_from][msg.sender];
         require(
             currentAllowance >= _amount,
             "transferred amount exceeds the allowed"
         );
         _balances[_from] -= _amount;
         _balances[_to] += _amount;
-        approve(_to, currentAllowance - _amount);
+        _allowances[_from][msg.sender] = currentAllowance - _amount;
         emit Transfer(_from, _to, _amount);
         return true;
     }
