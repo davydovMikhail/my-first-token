@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
 // import "../node_modules/hardhat/console.sol";
 // import "hardhat/console.sol";
@@ -29,7 +29,10 @@ contract Token {
     );
 
     modifier onlyOwner() {
-        require(msg.sender == _owner, 'this feature is only available to the owner of the contract');
+        require(
+            msg.sender == _owner,
+            "this feature is only available to the owner of the contract"
+        );
         _;
     }
 
@@ -63,7 +66,7 @@ contract Token {
     function approve(address _to, uint256 _amount) public returns (bool) {
         _allowances[msg.sender][_to] = _amount;
         emit Approval(msg.sender, _to, _amount);
-        return true;    
+        return true;
     }
 
     function transferFrom(
