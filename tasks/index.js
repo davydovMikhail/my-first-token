@@ -1,5 +1,4 @@
 // examples
-// exports.withdrawDonations = require("./withdraw-donations")
-// exports.donate = require("./donate")
-// exports.getDonatersList = require("./get-donaters-list")
-// exports.addressTotal = require("./address-total")
+exports.transfer = require("./transfer")
+exports.approve = require("./approve")
+exports.transferFrom = require("./transfer-from")

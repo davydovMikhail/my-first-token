@@ -4,6 +4,8 @@ require("solidity-coverage");
 require("@nomiclabs/hardhat-ethers");
 require("./tasks");
 require('dotenv').config();
+require('hardhat-contract-sizer');
+require("hardhat-gas-reporter");
 
 const { API_URL, PRIVATE_KEY } = process.env;
 

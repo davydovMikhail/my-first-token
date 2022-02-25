@@ -13,3 +13,5 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
+
+Token address = 0x9eB02B48372d2B3335CE78362a65Ab6B5863Ed25
